@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_DB_HOST=db
+      - DJANGO_DB_PORT=3306
+      - DJANGO_DB_NAME=stage
+      - DJANGO_DB_USER=root
+      - DJANGO_DB_PASSWORD=bogona
+
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: stage
+      MYSQL_USER: root
+      MYSQL_PASSWORD: bogona
+      MYSQL_ROOT_PASSWORD: bogona
